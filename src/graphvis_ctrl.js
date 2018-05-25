@@ -48,10 +48,11 @@ export class GraphvisCtrl extends MetricsPanelCtrl {
   }
 
   onDataReceived(dataList) {
-    this.viz.renderString('digraph { a -> b }')
-    .then(result => {
-      this.currentValue = result;
-      //console.log(result);
+    this.viz.renderSVGElement('digraph { a -> b }')
+    .then(function(element) {
+      document
+      .getElementById('graphvis-panel')
+      .replaceChild(element, document.getElementById('svg'));
     });
 
     if (!dataList) return;

@@ -2701,11 +2701,8 @@ System.register(['app/plugins/sdk', 'lodash', './css/graphvis-panel.css!'], func
         }, {
           key: 'onDataReceived',
           value: function onDataReceived(dataList) {
-            var _this2 = this;
-
-            this.viz.renderString('digraph { a -> b }').then(function (result) {
-              _this2.currentValue = result;
-              //console.log(result);
+            this.viz.renderSVGElement('digraph { a -> b }').then(function (element) {
+              document.getElementById('graphvis-panel').replaceChild(element, document.getElementById('svg'));
             });
 
             if (!dataList) return;
@@ -2723,13 +2720,13 @@ System.register(['app/plugins/sdk', 'lodash', './css/graphvis-panel.css!'], func
         }, {
           key: 'link',
           value: function link(scope, elem) {
-            var _this3 = this;
+            var _this2 = this;
 
             this.events.on('render', function () {
               var $panelContainer = elem.find('.panel-container');
 
-              if (_this3.panel.bgColor) {
-                $panelContainer.css('background-color', _this3.panel.bgColor);
+              if (_this2.panel.bgColor) {
+                $panelContainer.css('background-color', _this2.panel.bgColor);
               } else {
                 $panelContainer.css('background-color', '');
               }
